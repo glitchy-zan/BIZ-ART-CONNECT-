@@ -1,0 +1,40 @@
+# Dependency directories
+node_modules/
+
+# Debug log from npm
+npm-debug.log
+
+# Environment configuration files
+.env
+
+# workspace files
+*.code-workspace
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.vscode/
+*.sublime-workspace
+*.sublime-project
+
+# Build output
+/dist
+/build
+
+# Temporary files
+*.tmp
+*.temp
+
+# Log files
+*.log
+
+# Code workspace file
+*.code-workspace
+
+# Other files and folders to ignore depending on your project
+# e.g., client-side bundler cache
+/.parcel-cache
+# e.g., coverage reports
+/coverage
