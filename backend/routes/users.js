@@ -3,22 +3,13 @@ const app = express();
 const DB = require("../db/dbConn.js");
 const usersRouter = express.Router();
 
-usersRouter.get("/artistRegister", async (req, res, next) => {
+usersRouter.post("/artistRegister", async (req, res, next) => {
   try {
-    let artist = {
-      name: "John",
-      last_name: "Novak",
-      pseudonym: "Balonar",
-      art_type: "kiparstvo",
-      genre: "svobodno",
-      location: "Brežice 9a",
-      mail: "kurac21@gmail.com",
-      encrypted_password: "***********",
-    };
+    const artist = req.body;
     var queryResult = await DB.artistCreate(artist);
-    res.send("You have been hacked!");
+    res.send("artist");
   } catch (err) {
-    res.send("Shit, it's an error!");
+    res.send(err);
     // - duplicate mail error
   }
 });
