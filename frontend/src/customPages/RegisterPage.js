@@ -2,6 +2,7 @@ import React from "react";
 import LandingPageNavigation from "../customComponents/LandingPageNavigation";
 import style from "../customStyle/LandingPageStyle.module.css";
 import formStyle from "../customStyle/FormStyle.module.css";
+import axios from "axios";
 
 class RegisterPage extends React.Component {
   constructor(props) {
@@ -34,8 +35,27 @@ class RegisterPage extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    // Process the form data here, e.g., send it to a server
-    console.log(this.state);
+
+    const formData = {
+      userType: this.state.userType,
+      mail: this.state.email,
+      encrypted_password: this.state.password,
+      name: this.state.name,
+      last_name: this.state.lastName,
+      pseudonym: this.state.pseudonym,
+      art_type: this.state.artType,
+      genre: this.state.genre,
+      location: this.state.artistLocation,
+    };
+
+    axios
+      .post("http://88.200.63.148:8199/users/artistRegister", formData)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   /**********************************************************************************************************************************************
