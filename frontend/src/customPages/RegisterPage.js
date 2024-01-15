@@ -1,75 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
 import LandingPageNavigation from "../customComponents/LandingPageNavigation";
 import style from "../customStyle/LandingPageStyle.module.css";
 import formStyle from "../customStyle/FormStyle.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
-class RegisterPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userType: "artist",
-      // Shared fields
-      email: "",
-      password: "",
-      // Artist fields
-      name: "",
-      lastName: "",
-      pseudonym: "",
-      artType: "",
-      genre: "",
-      artistLocation: "",
-      // Business fields
-      businessName: "",
-      industry: "",
-      businessLocation: "",
-      description: "",
-      commonProjects: "",
-      submit_error: false,
-    };
-  }
+const RegisterPage = () => {
+  const [formData, setFormData] = useState({
+    userType: "artist",
+    // Shared fields
+    email: "",
+    password: "",
+    // Artist fields
+    name: "",
+    lastName: "",
+    pseudonym: "",
+    artType: "",
+    genre: "",
+    artistLocation: "",
+    // Business fields
+    businessName: "",
+    industry: "",
+    businessLocation: "",
+    description: "",
+    commonProjects: "",
+    //
+    submit_error: false,
+  });
 
-  handleChange = (event) => {
+  const navigate = useNavigate();
+
+  const handleChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    setFormData({ ...formData, [name]: value });
   };
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
+    setFormData({ ...formData, submit_error: false });
 
-    const formData = {
-      userType: this.state.userType,
-      mail: this.state.email,
-      encrypted_password: this.state.password,
-      name: this.state.name,
-      last_name: this.state.lastName,
-      pseudonym: this.state.pseudonym,
-      art_type: this.state.artType,
-      genre: this.state.genre,
-      location: this.state.artistLocation,
+    const submissionData = {
+      userType: formData.userType,
+      mail: formData.email,
+      encrypted_password: formData.password,
+      name: formData.name,
+      last_name: formData.lastName,
+      pseudonym: formData.pseudonym,
+      art_type: formData.artType,
+      genre: formData.genre,
+      location: formData.artistLocation,
     };
 
+    // if good then navigate to login
     axios
-      .post("http://88.200.63.148:8199/users/artistRegister", formData)
+      .post("http://88.200.63.148:8199/users/artistRegister", submissionData)
       .then((response) => {
         if (!response.data.error) {
-          ///////
+          navigate("/login");
         } else {
-          this.setState({ submit_error: true }, () => {
-            console.log(response.data.error_detail);
-          });
+          setFormData({ ...formData, submit_error: true });
+          console.log(response.data.error_detail);
         }
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
   /**********************************************************************************************************************************************
    * Artist
    */
 
-  renderArtistForm() {
+  const renderArtistForm = () => {
     return (
       <>
         <br />
@@ -78,8 +79,8 @@ class RegisterPage extends React.Component {
           type="text"
           id="name"
           name="name"
-          value={this.state.name}
-          onChange={this.handleChange}
+          value={formData.name}
+          onChange={handleChange}
           required
         />
         <br />
@@ -89,8 +90,8 @@ class RegisterPage extends React.Component {
           type="text"
           id="lastName"
           name="lastName"
-          value={this.state.lastName}
-          onChange={this.handleChange}
+          value={formData.lastName}
+          onChange={handleChange}
           required
         />
         <br />
@@ -99,8 +100,8 @@ class RegisterPage extends React.Component {
           type="text"
           id="pseudonym"
           name="pseudonym"
-          value={this.state.pseudonym}
-          onChange={this.handleChange}
+          value={formData.pseudonym}
+          onChange={handleChange}
         />
         <br />
         <label htmlFor="artType">Art Type:</label>
@@ -108,8 +109,8 @@ class RegisterPage extends React.Component {
           type="text"
           id="artType"
           name="artType"
-          value={this.state.artType}
-          onChange={this.handleChange}
+          value={formData.artType}
+          onChange={handleChange}
         />
         <br />
         <label htmlFor="genre">Genre:</label>
@@ -117,8 +118,8 @@ class RegisterPage extends React.Component {
           type="text"
           id="genre"
           name="genre"
-          value={this.state.genre}
-          onChange={this.handleChange}
+          value={formData.genre}
+          onChange={handleChange}
         />
         <br />
         <label htmlFor="artistLocation">Location:</label>
@@ -126,19 +127,19 @@ class RegisterPage extends React.Component {
           type="text"
           id="artistLocation"
           name="artistLocation"
-          value={this.state.artistLocation}
-          onChange={this.handleChange}
+          value={formData.artistLocation}
+          onChange={handleChange}
           required
         />
       </>
     );
-  }
+  };
 
   /**********************************************************************************************************************************************
    * Business
    */
 
-  renderBusinessForm() {
+  const renderBusinessForm = () => {
     return (
       <>
         <br />
@@ -147,8 +148,8 @@ class RegisterPage extends React.Component {
           type="text"
           id="businessName"
           name="businessName"
-          value={this.state.businessName}
-          onChange={this.handleChange}
+          value={formData.businessName}
+          onChange={handleChange}
           required
         />
         <br />
@@ -157,8 +158,8 @@ class RegisterPage extends React.Component {
           type="text"
           id="industry"
           name="industry"
-          value={this.state.industry}
-          onChange={this.handleChange}
+          value={formData.industry}
+          onChange={handleChange}
           required
         />
         <br />
@@ -167,8 +168,8 @@ class RegisterPage extends React.Component {
           type="text"
           id="businessLocation"
           name="businessLocation"
-          value={this.state.businessLocation}
-          onChange={this.handleChange}
+          value={formData.businessLocation}
+          onChange={handleChange}
           required
         />
         <br />
@@ -176,8 +177,8 @@ class RegisterPage extends React.Component {
         <textarea
           id="description"
           name="description"
-          value={this.state.description}
-          onChange={this.handleChange}
+          value={formData.description}
+          onChange={handleChange}
           required
         />
         <br />
@@ -186,72 +187,70 @@ class RegisterPage extends React.Component {
           type="text"
           id="commonProjects"
           name="commonProjects"
-          value={this.state.commonProjects}
-          onChange={this.handleChange}
+          value={formData.commonProjects}
+          onChange={handleChange}
         />
       </>
     );
-  }
+  };
 
   /**********************************************************************************************************************************************
    * Shared
    */
 
-  render() {
-    return (
-      <>
-        <LandingPageNavigation />
-        <form
-          onSubmit={this.handleSubmit}
-          className={`${style.contentSpacer} ${formStyle.formContainer} ${
-            !this.state.submit_error
-              ? formStyle.formContainer2
-              : formStyle.errorMark
-          }`}
+  return (
+    <>
+      <LandingPageNavigation />
+      <form
+        onSubmit={handleSubmit}
+        className={`${style.contentSpacer} ${formStyle.formContainer} ${
+          !formData.submit_error
+            ? formStyle.formContainer2
+            : formStyle.errorMark
+        }`}
+      >
+        <h2>Register</h2>
+
+        <label htmlFor="userType">I am registering as:</label>
+        <select
+          id="userType"
+          name="userType"
+          value={formData.userType}
+          onChange={handleChange}
+          required
         >
-          <h2>Register</h2>
+          <option value="artist">Artist</option>
+          <option value="business">Business</option>
+        </select>
 
-          <label htmlFor="userType">I am registering as:</label>
-          <select
-            id="userType"
-            name="userType"
-            value={this.state.userType}
-            onChange={this.handleChange}
-            required
-          >
-            <option value="artist">Artist</option>
-            <option value="business">Business</option>
-          </select>
-
-          {this.state.userType === "artist"
-            ? this.renderArtistForm()
-            : this.renderBusinessForm()}
-          <br />
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
-          <br />
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
-          <br />
-          <input type="submit" value="Register" />
-        </form>
-      </>
-    );
-  }
-}
+        {formData.userType === "artist"
+          ? renderArtistForm()
+          : renderBusinessForm()}
+        <br />
+        <label htmlFor="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <br />
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <br />
+        <input type="submit" value="Register" />
+      </form>
+    </>
+  );
+};
 
 export default RegisterPage;
