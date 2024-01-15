@@ -3,14 +3,21 @@ const app = express();
 const DB = require("../db/dbConn.js");
 const usersRouter = express.Router();
 
+// return JSON with error indicator
 usersRouter.post("/artistRegister", async (req, res, next) => {
   try {
     const artist = req.body;
     var queryResult = await DB.artistCreate(artist);
-    res.send("artist");
+    console.log("no error!");
+    res.send({
+      error: false,
+    });
   } catch (err) {
-    res.send(err);
-    // - duplicate mail error
+    console.log("error happened!");
+    res.send({
+      error: true,
+      error_detail: err,
+    });
   }
 });
 
