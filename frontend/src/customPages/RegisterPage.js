@@ -39,32 +39,61 @@ const RegisterPage = () => {
     event.preventDefault();
     setFormData({ ...formData, submit_error: false });
 
+    // strict naming! ART & BIZ having some identical attributes
     const submissionData = {
+      // shared attr
       userType: formData.userType,
+      name: formData.name,
+      location: formData.artistLocation,
       mail: formData.email,
       encrypted_password: formData.password,
-      name: formData.name,
+      // ART attr
       last_name: formData.lastName,
       pseudonym: formData.pseudonym,
       art_type: formData.artType,
       genre: formData.genre,
-      location: formData.artistLocation,
+      // BIZ attr
+      industry: formData.industry,
+      description: formData.description,
+      common_projects: formData.commonProjects,
     };
 
-    // if good then navigate to login
-    axios
-      .post("http://88.200.63.148:8199/users/artistRegister", submissionData)
-      .then((response) => {
-        if (!response.data.error) {
-          navigate("/login");
-        } else {
-          setFormData({ ...formData, submit_error: true });
-          console.log(response.data.error_detail);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // ART
+    if (formData.userType === "artist") {
+      axios
+        .post("http://88.200.63.148:8199/users/artistRegister", submissionData)
+        .then((response) => {
+          // if no err then navigate to login
+          if (!response.data.error) {
+            navigate("/login");
+          } else {
+            setFormData({ ...formData, submit_error: true });
+            console.log(response.data.error_detail);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      // BIZ
+    } else {
+      axios
+        .post(
+          "http://88.200.63.148:8199/users/businessRegister",
+          submissionData
+        )
+        .then((response) => {
+          // if no err then navigate to login
+          if (!response.data.error) {
+            navigate("/login");
+          } else {
+            setFormData({ ...formData, submit_error: true });
+            console.log(response.data.error_detail);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
   /**********************************************************************************************************************************************
    * Artist
