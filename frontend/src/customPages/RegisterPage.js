@@ -25,6 +25,7 @@ class RegisterPage extends React.Component {
       businessLocation: "",
       description: "",
       commonProjects: "",
+      submit_error: false,
     };
   }
 
@@ -51,7 +52,13 @@ class RegisterPage extends React.Component {
     axios
       .post("http://88.200.63.148:8199/users/artistRegister", formData)
       .then((response) => {
-        console.log(response);
+        if (!response.data.error) {
+          ///////
+        } else {
+          this.setState({ submit_error: true }, () => {
+            console.log(response.data.error_detail);
+          });
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -196,7 +203,11 @@ class RegisterPage extends React.Component {
         <LandingPageNavigation />
         <form
           onSubmit={this.handleSubmit}
-          className={`${style.contentSpacer} ${formStyle.formContainer}`}
+          className={`${style.contentSpacer} ${formStyle.formContainer} ${
+            !this.state.submit_error
+              ? formStyle.formContainer2
+              : formStyle.errorMark
+          }`}
         >
           <h2>Register</h2>
 
