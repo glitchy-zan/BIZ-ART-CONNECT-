@@ -52,7 +52,24 @@ crudResult.artistCreate = (artist) => {
 
 crudResult.artistReadAll = () => {};
 
-crudResult.artistReadByid = (id) => {};
+crudResult.artistReadByMail = (mail) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT * FROM Artist WHERE mail = ?`,
+      [mail],
+      (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        if (res.length > 0) {
+          return resolve({ exists: true, artist: res[0] });
+        }
+        // no artist
+        return resolve({ exists: false });
+      }
+    );
+  });
+};
 
 crudResult.artistUpdate = (artist) => {};
 
@@ -80,6 +97,25 @@ crudResult.businessCreate = (business) => {
       (err, res) => {
         if (err) return reject(err);
         return resolve(res);
+      }
+    );
+  });
+};
+
+crudResult.businessReadByMail = (mail) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `SELECT * FROM Business WHERE mail = ?`,
+      [mail],
+      (err, res) => {
+        if (err) {
+          return reject(err);
+        }
+        if (res.length > 0) {
+          return resolve({ exists: true, business: res[0] });
+        }
+        // no business
+        return resolve({ exists: false });
       }
     );
   });
