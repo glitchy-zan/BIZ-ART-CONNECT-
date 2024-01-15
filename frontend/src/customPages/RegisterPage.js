@@ -11,6 +11,7 @@ const RegisterPage = () => {
     // Shared fields
     email: "",
     password: "",
+    location: "",
     // Artist fields
     name: "",
     lastName: "",
@@ -67,7 +68,19 @@ const RegisterPage = () => {
           if (!response.data.error) {
             navigate("/login");
           } else {
-            setFormData({ ...formData, submit_error: true });
+            setFormData({
+              ...formData,
+              email: "",
+              password: "",
+              location: "",
+              name: "",
+              lastName: "",
+              pseudonym: "",
+              artType: "",
+              genre: "",
+              artistLocation: "",
+              submit_error: true,
+            });
             console.log(response.data.error_detail);
           }
         })
@@ -86,7 +99,18 @@ const RegisterPage = () => {
           if (!response.data.error) {
             navigate("/login");
           } else {
-            setFormData({ ...formData, submit_error: true });
+            setFormData({
+              ...formData,
+              email: "",
+              password: "",
+              location: "",
+              businessName: "",
+              industry: "",
+              businessLocation: "",
+              description: "",
+              commonProjects: "",
+              submit_error: true,
+            });
             console.log(response.data.error_detail);
           }
         })
