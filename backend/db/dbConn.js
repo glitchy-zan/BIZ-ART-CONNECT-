@@ -62,4 +62,27 @@ crudResult.artistDelete = (artist) => {};
  * CRUD Business
  */
 
+crudResult.businessCreate = (business) => {
+  return new Promise((resolve, reject) => {
+    conn.query(
+      `INSERT INTO Business 
+        (name, industry, location, description, common_projects, mail, encrypted_password) 
+        VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      [
+        business.name,
+        business.industry,
+        business.location,
+        business.description,
+        business.common_projects,
+        business.mail,
+        business.encrypted_password,
+      ],
+      (err, res) => {
+        if (err) return reject(err);
+        return resolve(res);
+      }
+    );
+  });
+};
+
 module.exports = crudResult;
