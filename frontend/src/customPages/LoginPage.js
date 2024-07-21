@@ -3,6 +3,7 @@ import LandingPageNavigation from "../customComponents/LandingPageNavigation";
 import style from "../customStyle/LandingPageStyle.module.css";
 import formStyle from "../customStyle/FormStyle.module.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,8 @@ const LoginPage = () => {
     password: "",
     submit_error: false,
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -33,7 +36,8 @@ const LoginPage = () => {
         .post("http://88.200.63.148:8199/users/artistLogin", submissionData)
         .then((response) => {
           if (response.data.exists && response.data.password_match) {
-            console.log("login succesful");
+            // navigate to artist dashboard
+            navigate("/artist/dashboard");
           } else {
             setFormData({
               ...formData,
@@ -78,7 +82,7 @@ const LoginPage = () => {
         >
           <h2>Login</h2>
 
-          <label htmlFor="userType">I am a(n):</label>
+          <label htmlFor="userType">I am:</label>
           <select
             id="userType"
             name="userType"
