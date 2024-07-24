@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import style from "../customStyle/LandingPageStyle.module.css";
 import LandingPageNavigation from "../customComponents/LandingPageNavigation";
 
