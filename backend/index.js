@@ -1,19 +1,37 @@
 const express = require("express");
 const app = express();
-const DB = require("./db/dbConn.js");
 const port = 8199;
-const users = require("./routes/users.js");
-const bodyParser = require("body-parser");
-const cors = require("cors");
+
+const DB = require("./db/dbConn.js");
 require("dotenv").config();
 
-app.use(cors());
+const session = require("express-session");
+
+const users = require("./routes/users.js");
+const api = require("./routes/api.js");
+
+const bodyParser = require("body-parser");
+
+app.use(
+  session({
+    secret: "your_session_secret",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    },
+  })
+);
+
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use("/users", users);
+app.use("/api", api);
 
 app.get("/", (req, res, next) => {
-  res.send("krneki");
+  res.send("");
 });
 
 ///App listening on port
