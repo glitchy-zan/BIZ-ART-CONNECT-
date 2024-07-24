@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import style from "../customStyle/LandingPageStyle.module.css";
 
 class ArtistNavigation extends React.Component {
-  // constructor and state...
-
   render() {
     return (
       <>

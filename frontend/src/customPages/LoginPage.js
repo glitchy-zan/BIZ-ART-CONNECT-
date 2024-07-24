@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import LandingPageNavigation from "../customComponents/LandingPageNavigation";
 import style from "../customStyle/LandingPageStyle.module.css";
 import formStyle from "../customStyle/FormStyle.module.css";
@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
-    userType: "artist", // Default to artist
+    userType: "artist", 
     email: "",
     password: "",
     submit_error: false,
@@ -33,10 +33,9 @@ const LoginPage = () => {
     // ART
     if (formData.userType === "artist") {
       axios
-        .post("http://88.200.63.148:8199/users/artistLogin", submissionData)
+        .post("/users/artistLogin", submissionData)
         .then((response) => {
-          if (response.data.exists && response.data.password_match) {
-            // navigate to artist dashboard
+          if (response.data.message === "Login successful") {
             navigate("/artist/dashboard");
           } else {
             setFormData({
@@ -45,13 +44,13 @@ const LoginPage = () => {
               password: "",
               submit_error: true,
             });
-            console.log(response.data.error_detail);
+            console.log(response.data.error);
           }
         });
       // BIZ
     } else {
       axios
-        .post("http://88.200.63.148:8199/users/businessLogin", submissionData)
+        .post("/users/businessLogin", submissionData)
         .then((response) => {
           if (response.data.exists && response.data.password_match) {
             console.log("login succesful2");

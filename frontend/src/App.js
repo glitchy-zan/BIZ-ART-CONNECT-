@@ -3,6 +3,7 @@ import LandingPage from "./customPages/LandingPage";
 import LoginPage from "./customPages/LoginPage";
 import RegisterPage from "./customPages/RegisterPage";
 import ArtistDashboardPage from "./customPages/ArtistDashboardPage";
+import PortfolioPage from "./customPages/PortfolioPage";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           path="/artist/dashboard"
           element={<ArtistDashboardPage />}
         />
+        <Route exact path="/artist/portfolio" element={<PortfolioPage />} />
       </Routes>
     </Router>
   );
