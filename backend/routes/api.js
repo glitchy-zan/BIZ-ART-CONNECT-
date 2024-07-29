@@ -1,3 +1,4 @@
+const { error } = require("console");
 const DB = require("../db/dbConn.js");
 const express = require("express");
 const apiRouter = express.Router();
@@ -22,10 +23,8 @@ apiRouter.get("/portfolioFetch", async (req, res) => {
   var artist = await DB.artistReadByMail(req.session.mail);
   artist = artist.artist;
   var queryResult = null;
-  if ( artist && artist.portfolio_id) {
-    console.log("artist has portfolio");
+  if (artist && artist.portfolio_id) {
     queryResult = await DB.portfolioReadByID(artist.portfolio_id);
-    console.log(queryResult);
   }
   if (queryResult && queryResult.exists) {
     res.send({
@@ -35,6 +34,40 @@ apiRouter.get("/portfolioFetch", async (req, res) => {
   } else {
     res.send({
       exists: false,
+    });
+  }
+});
+
+apiRouter.get("/workFetch", async (req, res) => {
+  var artist = await DB.artistReadByMail(req.session.mail);
+  artist = artist.artist;
+  var queryResult = null;
+  if (artist && artist.portfolio_id) {
+    queryResult = await DB.workReadByPortfolioId(artist.portfolio_id);
+  }
+  if (queryResult && queryResult.exists) {
+    res.send({
+      exists: true,
+      work: queryResult.work,
+    });
+  } else {
+    res.send({
+      exists: false,
+    });
+  }
+});
+
+apiRouter.get("/artist/trending/getAll", async (req, res) => {
+  // fetch all for now
+  const allArtists = await DB.artistReadAll();
+  if (allArtists.exists) {
+    res.send({
+      error: false,
+      artists: allArtists.artist,
+    });
+  } else {
+    res.send({
+      error: true,
     });
   }
 });

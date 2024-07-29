@@ -1,6 +1,8 @@
 const DB = require("../db/dbConn.js");
 const express = require("express");
 const usersRouter = express.Router();
+const multer = require("multer");
+const CryptoJS = require("crypto-js");
 
 /*****************************************************************************************************************************/
 /** Artist REGISTER */
@@ -68,6 +70,9 @@ usersRouter.post("/artistLogin", async (req, res, next) => {
       req.session.location = queryResult.artist.location;
       req.session.mail = queryResult.artist.mail;
       req.session.encrypted_password = queryResult.artist.encrypted_password;
+      if (queryResult.artist.portfolio_id) {
+        req.session.portfolio_id = queryResult.artist.portfolio_id;
+      }
 
       res.send({
         error: false,
@@ -131,6 +136,7 @@ usersRouter.post("/portfolioCreate", async (req, res, next) => {
       artist = artist.artist;
       artist = { ...artist, portfolio_id: queryResult.portfolio_id };
       await DB.artistUpdate(artist);
+      req.session.portfolio_id = queryResult.portfolio_id;
     } catch (err) {
       res.send({
         error: true,
@@ -152,5 +158,8 @@ usersRouter.post("/portfolioCreate", async (req, res, next) => {
     });
   }
 });
+
+/*****************************************************************************************************************************/
+/** END */
 
 module.exports = usersRouter;
