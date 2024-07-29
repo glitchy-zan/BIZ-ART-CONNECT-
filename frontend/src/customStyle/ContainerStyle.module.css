@@ -5,6 +5,7 @@
   background-color: #bebebe;
   text-align: center;
   transition: box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .Container1:hover {
@@ -20,8 +21,149 @@
   background-color: #bebebe;
   text-align: center;
   transition: box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
 .Container2:hover {
   box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, 0.3);
+}
+
+/***************************************************************************************************************************/
+
+.Container3 {
+  margin: 0 auto;
+  width: 80%;
+  height: 300px; /* Adjust height as needed */
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+/***************************************************************************************************************************/
+
+.Container4 {
+  margin: 0 auto;
+  height: 50%;
+  aspect-ratio: 1 / 1;
+  background-color: #333;
+  color: white;
+  padding: 30px;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.Container4:hover {
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, 0.3);
+}
+
+/***************************************************************************************************************************/
+
+.Container5 {
+  margin: 20px;
+  border-radius: 15px;
+  border: 1px solid #999999;
+  background-color: #bebebe;
+  text-align: center;
+}
+
+/***************************************************************************************************************************/
+
+.Container6 {
+  margin: 20px;
+}
+
+/***************************************************************************************************************************/
+
+.MyMasonryGrid {
+  display: flex;
+  margin: 20px;
+  width: auto;
+}
+.MyMasonryGridColumn {
+  padding-left: 10px;
+  background-clip: padding-box;
+}
+
+/* Style your grid items */
+.GridItem {
+  position: relative;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.GridItem img {
+  width: 100%;
+  display: block;
+  border-radius: 15px;
+}
+
+.RemoveButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  background-color: #333;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.GridItem:hover .RemoveButton {
+  display: flex;
+}
+
+.MainContainer {
+  position: relative; /* Ensure it is positioned relative to the viewport */
+  z-index: 0; /* Default stacking context */
+  padding: 20px;
+}
+
+.NavigationContainer {
+  position: sticky; /* Stick the navigation at the top */
+  top: 0;
+  z-index: 10; /* Ensure it stays on top of other content */
+}
+
+/***************************************************************************************************************************/
+
+.Container7 {
+  padding: 20px;
+  text-align: center;
+  border-radius: 30px;
+  border: 1px solid #333;
+  width: 15%;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.Container7:hover {
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, 0.3);
+}
+
+/***************************************************************************************************************************/
+
+.ArtistContainer {
+  margin: 20px;
+  border: #333 1px solid;
+  border-radius: 15px;
+  width: 40%;
+  text-align: center;
+  align-items: center;
+  color:#333;
+  height: 300px;
+  overflow: hidden;
+}
+
+.ArtistContainer:hover{
+  border: #333 2px solid;
 }

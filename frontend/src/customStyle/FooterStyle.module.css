@@ -7,3 +7,14 @@
   margin: 30px 0px 0px 0px;
   box-sizing: border-box;
 }
+
+.footerFix {
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 3px 5px;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0
+}

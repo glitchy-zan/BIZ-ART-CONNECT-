@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-import LandingPageNavigation from "../customComponents/LandingPageNavigation";
-import style from "../customStyle/LandingPageStyle.module.css";
-import formStyle from "../customStyle/FormStyle.module.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import ArtistNavigation from "../customComponents/ArtistNavigation";
 import Container1 from "../customComponents/Container1";
 import Container2 from "../customComponents/Container2";
-import Footer from "../customComponents/Footer";
+import { Footer, FooterFix } from "../customComponents/Footer";
 import { Circles } from "react-loader-spinner";
 
 const ArtistDashboardPage = () => {
@@ -59,7 +56,7 @@ const ArtistDashboardPage = () => {
   const navigate = useNavigate();
 
   const handleProfileClick = () => {
-    console.log("clicked1");
+    navigate("/artist/personalInfo");
   };
 
   const handlePortfolioClick = () => {
@@ -71,7 +68,7 @@ const ArtistDashboardPage = () => {
   };
 
   const handleProfileSettingsClick = () => {
-    console.log("clicked4");
+    navigate("/artist/profileSettings");
   };
 
   if (loading) {
@@ -157,7 +154,7 @@ const ArtistDashboardPage = () => {
       </Container1>
       <Container2 onClick={handlePortfolioClick}>
         <h2>Portfolio</h2>
-        <p>Portfolio not yet created.</p>
+        <p>See your portfolio.</p>
       </Container2>
       <Container1 onClick={handleQuickStatsClick}>
         <h2>Quick stats</h2>

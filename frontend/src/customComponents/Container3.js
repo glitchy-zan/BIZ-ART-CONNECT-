@@ -1,12 +1,12 @@
 import React from "react";
 import containerStyle from "../customStyle/ContainerStyle.module.css";
 
-const Container2 = ({ children, onClick }) => {
+const Container3 = ({ children, onClick }) => {
   return (
-    <div className={containerStyle.Container2} onClick={onClick}>
+    <div className={containerStyle.Container3} onClick={onClick}>
       {children}
     </div>
   );
 };
 
-export default Container2;
+export default Container3;

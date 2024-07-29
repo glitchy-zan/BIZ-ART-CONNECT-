@@ -4,6 +4,10 @@ import style from "../customStyle/LandingPageStyle.module.css";
 import formStyle from "../customStyle/FormStyle.module.css";
 import axios from "axios";
 import { Circles } from "react-loader-spinner";
+import Container3 from "../customComponents/Container3";
+import Container4 from "../customComponents/Container4";
+import { Footer, FooterFix } from "../customComponents/Footer";
+import { useNavigate } from "react-router-dom";
 
 const PortfolioPage = () => {
   // for form stuff
@@ -35,7 +39,7 @@ const PortfolioPage = () => {
         });
       }
     } catch (error) {
-      console.error('Error fetching portfolio:', error);
+      console.error("Error fetching portfolio:", error);
     }
   };
 
@@ -73,8 +77,40 @@ const PortfolioPage = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const navigate = useNavigate();
+
+  const navigateToWork = () => {
+    navigate("/artist/portfolio/work");
+  };
+
+  const navigateToAwards = () => {
+    navigate("/artist/portfolio/award");
+  };
+
+  const navigateToExperience = () => {
+    navigate("/artist/portfolio/experience");
+  };
+
   const hasPortfolio = () => {
-    return <div></div>;
+    return (
+      <Container3>
+        <Container4 onClick={navigateToWork}>
+          <div>WORK</div>
+          <br />
+          <div>Click to see and add work</div>
+        </Container4>
+        <Container4 onClick={navigateToAwards}>
+          <div>AWARDS</div>
+          <br />
+          <div>Click to see and add awards</div>
+        </Container4>
+        <Container4 onClick={navigateToExperience}>
+          <div>EXPERIENCE</div>
+          <br />
+          <div>Click to see and add experience</div>
+        </Container4>
+      </Container3>
+    );
   };
 
   const noPortfolio = () => {
@@ -128,8 +164,11 @@ const PortfolioPage = () => {
   return (
     <>
       <ArtistNavigation />
-      <h2 style={{ margin: "60px", textAlign: "center" }}>PORTFOLIO</h2>
+      <h1 style={{ margin: "80px", textAlign: "center", fontSize: "50px" }}>
+        PORTFOLIO
+      </h1>
       {portfolioData.portfolioExists ? hasPortfolio() : noPortfolio()}
+      <FooterFix />
     </>
   );
 };
